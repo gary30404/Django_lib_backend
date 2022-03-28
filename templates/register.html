@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}         
+
+<!--Register--> 
+<div class="container py-5">
+	<h1>Register</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{ register_form|crispy }}                    
+		<button class="btn btn-primary" type="submit">送出</button>
+	</form>
+	<p class="text-center">已有帳號? <a href="/login">登入</a></p>
+</div>
+
+{% for message in messages %}
+<div class="alert alert-success">
+    <a class="close" href="#" data-dismiss="alert">×</a>
+       {{ message }}
+</div>
+{% endfor %}
+{% endblock %}

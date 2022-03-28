@@ -1,0 +1,28 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--Login-->
+<div class="container py-5">
+    <h1 class="text-center">設備檢視狀態</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <table class="table">
+        <tbody>
+          <tr scope="row">
+            <th>請選擇日期：</th>
+            <td>
+                <input type="date" class="form-control" id="date" name="date">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">搜尋</button>
+    </form>
+
+
+</div>
+
+{% endblock %}

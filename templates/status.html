@@ -1,0 +1,35 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--Login-->
+
+<div class="container py-5">
+    <table class="table">
+    <tr>
+      {% for item in status_dict %}
+        {% if item.1 == "未紀錄" %}
+            <td class="table-secondary text-center">
+        {% elif item.1 == "問題排除" %}
+            <td class="table-primary text-center">
+        {% elif item.1 == "使用中" %}
+            <td class="table-success text-center">
+        {% elif item.1 == "通知人員" %}
+            <td class="table-danger text-center">
+        {% elif item.1 == "其他" %}
+            <td class="table-warning text-center">
+        {% else %}
+            <td class="table-light text-center">
+        {% endif %}
+            {{item.0}} <br> {{item.1}} </td>
+        {% if forloop.counter|divisibleby:"5" %}
+        </tr><tr>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    </table>
+</div>
+
+{% endblock %}
