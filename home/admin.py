@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import *
 
 class MachineAdmin(admin.ModelAdmin):
-    list_display = ('id', 'place', 'area', 'group', 'floor', 'machine_id')
+    list_display = ('id', 'place', 'area', 'group', 'floor', 'machine_id', 'record_today')
+    readonly_fields = ['record_today']
 
 class RecordAdmin(admin.ModelAdmin):
     list_display =  [f.name for f in Record._meta.get_fields()]

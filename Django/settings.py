@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'login',
     'crispy_forms',
     'home',
+    'django_crontab', #  python manage.py crontab add
+]
+
+CRONJOBS = [
+('0 0 * * *', 'Django.cron.my_scheduled_job')
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

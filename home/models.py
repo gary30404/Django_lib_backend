@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Place(models.Model):
     name = models.CharField("區域", max_length=50)
 
@@ -30,10 +31,11 @@ class Machine(models.Model):
     group = models.ForeignKey(Maintain_Group, on_delete=models.CASCADE, related_name='menu_items')
     floor = models.PositiveIntegerField('樓層', default=1)
     machine_id = models.CharField("機器編號", max_length=10, unique=True)
+    record_today = models.PositiveIntegerField("今日更新", default=0)
 
     def __str__(self):
         #return {"place":self.place, "area":self.area, "group":self.group, "floor":self.floor, "machine_id":self.machine_id}
-        return "區域:{} 位置:{} 類別:{} 樓層:{} 機器編號:{}".format(self.place, self.area, self.group, self.floor, self.machine_id)
+        return "區域:{} 位置:{} 類別:{} 樓層:{} 機器編號:{} 今日更新:{}".format(self.place, self.area, self.group, self.floor, self.machine_id, self.record_today)
 
 class Record(models.Model):
     machine = models.ForeignKey(Machine, on_delete=models.CASCADE, related_name='menu_items')
@@ -44,3 +46,4 @@ class Record(models.Model):
 
     def __str__(self):
         return "機器編號:{} 機器區域:{} 狀態:{} 備註:{} 記錄時間:{} 紀錄人員:{}".format(self.machine.machine_id, self.machine.area, self.status, self.note, self.update_time, self.user)
+

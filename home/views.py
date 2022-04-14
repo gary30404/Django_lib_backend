@@ -22,13 +22,14 @@ def machine(request):
         request.session['machine_id'] = request.POST['machine']
         return redirect("record")
     place = request.session['place']
-    machines = Machine.objects.all().filter(place__name__contains=place)
+    machines = Machine.objects.all().filter(place__name__contains=place).values()
     return render(request, "machine.html", locals())
 
 @login_required(login_url='login')
 def record(request):
     if request.method == "POST":
         machine = Machine.objects.only("id").get(machine_id=request.POST['machine_id'])
+        Machine.objects.filter(machine_id=request.POST['machine_id']).update(record_today=1)
         status = Status.objects.only("id").get(name=request.POST['status_update'])
         unit = Record.objects.create(machine=machine, status=status, note=request.POST['note'], user=request.user.username)
         unit.save()
