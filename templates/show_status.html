@@ -1,0 +1,33 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--Login-->
+
+<div class="container py-5">
+    <table class="table">
+    <h1>狀態：{{ status }}</h1>
+    <tr class="text-center">
+        <th>機器編號</th>
+        <th>區域<br>樓層<br>位置</th>
+        <th>類別</th>
+        <th>備註</th>
+        <th>記錄時間</th>
+        <th>紀錄人員</th>
+    </tr>
+    {% for item in records %}
+    <tr>
+        <td class="text-center">{{ item.machine.machine_id }}</td>
+        <td class="text-center">{{ item.machine.place }}<br>{{ item.machine.floor }}<br>{{ item.machine.area }}</td>
+        <td class="text-center">{{ item.machine.group }}</td>
+        <td class="text-center">{{ item.note }}</td>
+        <td class="text-center">{{ item.update_time }}</td>
+        <td class="text-center">{{ item.user }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

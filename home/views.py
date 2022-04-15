@@ -80,6 +80,7 @@ def examine_date_place(request):
     if request.method == "POST":
         request.session['place'] = request.POST['place']
         return redirect("show_date")
+    date = request.session['date']
     places = Place.objects.all().order_by('id')
     return render(request, "place.html", locals())
 
@@ -87,6 +88,8 @@ def examine_date_place(request):
 def show_date(request):
     date = datetime.datetime.strptime(request.session['date'], "%Y-%m-%d")
     machines = Machine.objects.all().filter(place__name__contains=request.session['place'])
+    showdate = request.session['date']
+    showplace = request.session['place']
     status_dict = []
     for machine in machines:
         records = Record.objects.all().filter(machine__machine_id__contains=machine.machine_id).filter(
@@ -98,7 +101,23 @@ def show_date(request):
         else:
             records = records[0]
         status_dict.append((machine.machine_id, records))
+    len_status_dict = len(status_dict)
     return render(request, "show_date.html", locals())
+
+@login_required(login_url='login')
+def examine_status(request):
+    if request.method == "POST":
+        request.session['status'] = request.POST['status']
+        return redirect("show_status")
+    status = Status.objects.all().values()
+    return render(request, "examine_status.html", locals())
+
+@login_required(login_url='login')
+def show_status(request):
+    status = Status.objects.filter(id=request.session['status'])[0].name
+    records = Record.objects.all().filter(status=request.session['status']).order_by("update_time")[:30]
+    records = reversed(records)
+    return render(request, "show_status.html", locals())
 
 def view_404(request, exception=None):
     return redirect('/')

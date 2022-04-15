@@ -34,6 +34,8 @@ urlpatterns = [
     path("examine_date", examine_date, name="examine_date"),
     path("examine_date_place", examine_date_place, name="examine_date_place"),
     path("show_date", show_date, name="show_date"),
+    path("examine_status", examine_status, name="examine_status"),
+    path("show_status", show_status, name="show_status"),
 ]
 
 handler404 = view_404

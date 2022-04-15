@@ -8,6 +8,12 @@
 
 <div class="container py-5">
     <table class="table">
+    <tr class="text-center">
+        <th colspan="{{ len_status_dict }}">
+           <p class="font-weight-bold">{{ showdate }}</p>
+            <p class="font-weight-bold">{{ showplace }}</p>
+        </th>
+    </tr>
     <tr>
       {% for item in status_dict %}
         {% if item.1 == "未紀錄" %}
