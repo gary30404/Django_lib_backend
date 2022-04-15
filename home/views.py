@@ -72,13 +72,21 @@ def examine(request):
 def examine_date(request):
     if request.method == "POST":
         request.session['date'] = request.POST['date']
-        return redirect("show_date")
+        return redirect("examine_date_place")
     return render(request, "examine_date.html", locals())
+
+@login_required(login_url='login')
+def examine_date_place(request):
+    if request.method == "POST":
+        request.session['place'] = request.POST['place']
+        return redirect("show_date")
+    places = Place.objects.all().order_by('id')
+    return render(request, "place.html", locals())
 
 @login_required(login_url='login')
 def show_date(request):
     date = datetime.datetime.strptime(request.session['date'], "%Y-%m-%d")
-    machines = Machine.objects.all().order_by('id')
+    machines = Machine.objects.all().filter(place__name__contains=request.session['place'])
     status_dict = []
     for machine in machines:
         records = Record.objects.all().filter(machine__machine_id__contains=machine.machine_id).filter(

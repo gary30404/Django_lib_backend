@@ -32,6 +32,7 @@ urlpatterns = [
     path("status", status, name="status"),
     path("examine", examine, name="examine"),
     path("examine_date", examine_date, name="examine_date"),
+    path("examine_date_place", examine_date_place, name="examine_date_place"),
     path("show_date", show_date, name="show_date"),
 ]
 
